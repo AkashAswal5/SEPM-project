@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberWatchdog Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            display: flex;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 8px;
+        }
+        input, button {
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+            border: none;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        #scan-results {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            min-height: 100px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        #sidebar {
+            flex: 0 0 200px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        #sidebar button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        #sidebar button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to CyberWatchdog Portal</h1>
+    </header>
+
+    <div class="container">
+        <div id="sidebar">
+            <button onclick="trackIP()">Track IP</button>
+            <button onclick="knowMyIP()">Know My IP</button>
+            <button onclick="pingIP()">Ping IP</button>
+            <button onclick="tempMail()">Temporary Mail</button>
+            <button onclick="vpnServices()">VPN Services</button>
+            <button onclick="proxySettings()">Proxy Settings</button>
+            <button onclick="trackLocation()">Track Location</button>
+            <button onclick="searchVulnerability()">Search for Vulnerability</button>
+            <button onclick="freeCourses()">Free Courses</button>
+        </div>
+
+        <div id="content">
+            <section id="login-section">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <button type="submit">Login</button>
+                    <p>Don't have an account? <a href="#" id="register-link">Register here</a></p>
+                </form>
+            </section>
+
+            <section id="registration-section" style="display:none;">
+                <h2>Register</h2>
+                <form id="register-form">
+                    <label for="new-username">Username:</label>
+                    <input type="text" id="new-username" name="new-username" required>
+                    <label for="new-password">Password:</label>
+                    <input type="password" id="new-password" name="new-password" required>
+                    <button type="submit">Register</button>
+                </form>
+            </section>
+
+            <section id="scan-section" style="display:none;">
+                <h2>Initiate Scan</h2>
+                <button id="initiate-scan-btn">Start Scan</button>
+            </section>
+
+            <section id="results-section" style="display:none;">
+                <h2>Scan Results</h2>
+                <div id="scan-results"></div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <a href="#">Home</a>
+        <a href="#">Contact</a>
+        <a href="#">Helpdesk</a>
+        <a href="#">About</a>
+        <a href="#">Our Policy</a>
+        <a href="#">Recently Vulnerabilities</a>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login-form');
+            const registerLink = document.getElementById('register-link');
+            const registerForm = document.getElementById('register-form');
+            const initiateScanBtn = document.getElementById('initiate-scan-btn');
+
+            registerLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('registration-section').style.display = 'block';
+            });
+
+            loginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Simulate authentication (replace with actual API call)
+                if (username === 'admin' && password === 'password') {
+                    showScanSection();
+                } else {
+                    alert('Invalid credentials. Please try again.');
+                }
+            });
+
+            registerForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const newUsername = document.getElementById('new-username').value;
+                const newPassword = document.getElementById('new-password').value;
+                
+                // Simulate registration (replace with actual API call)
+                alert(`User ${newUsername} registered successfully!`);
+                document.getElementById('registration-section').style.display = 'none';
+                document.getElementById('login-section').style.display = 'block';
+            });
+
+            initiateScanBtn.addEventListener('click', () => {
+                simulateScanResults();
+            });
+        });
+
+        function showScanSection() {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('scan-section').style.display = 'block';
+        }
+
+        function simulateScanResults() {
+            const scanResults = [
+                { device: 'Device 1', vulnerabilities: ['Weak password', 'Open port'] },
+                { device: 'Device 2', vulnerabilities: ['Outdated software'] }
+            ];
+
+            const resultsDiv = document.getElementById('scan-results');
+            resultsDiv.innerHTML = '<h3>Scan Results:</h3>';
+
+            scanResults.forEach((result) => {
+                const deviceInfo = `<p><strong>${result.device}:</strong></p>`;
+                const vulnerabilitiesList = `<ul>${result.vulnerabilities.map(v => `<li>${v}</li>`).join('')}</ul>`;
+                resultsDiv.innerHTML += deviceInfo + vulnerabilitiesList;
+            });
+
+            document.getElementById('scan-section').style.display = 'none';
+            document.getElementById('results-section').style.display = 'block';
+        }
+
+        function trackIP() {
+            alert('Track IP option selected.');
+            // Implement track IP functionality
+        }
+
+        function knowMyIP() {
+            alert('Know My IP option selected.');
+            // Implement know my IP functionality
+        }
+
+        function pingIP() {
+            alert('Ping IP option selected.');
+            // Implement ping IP functionality
+        }
+
+        function tempMail() {
+            alert('Temporary Mail option selected.');
+            // Implement temporary mail functionality
+        }
+
+        function vpnServices() {
+            alert('VPN Services option selected.');
+            // Implement VPN services functionality
+        }
+
+        function proxySettings() {
+            alert('Proxy Settings option selected.');
+            // Implement proxy settings functionality
+        }
+
+        function trackLocation() {
+            alert('Track Location option selected.');
+            // Implement track location functionality
+        }
+
+        function searchVulnerability() {
+            alert('Search for Vulnerability option selected.');
+            // Implement vulnerability search functionality
+        }
+
+        function freeCourses() {
+            alert('Free Courses option selected.');
+            // Implement free courses functionality
+        }
+    </script>
+</body>
+</html>
